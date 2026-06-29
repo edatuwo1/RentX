@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="dashboard-hero">
+
+
+<div class="dashboard-hero-content">
+
+    <h1>
+        Welcome Back
+    </h1>
+
+    <p>
+        Manage your vehicles, monitor bookings,
+        and grow your rental business with RentX.
+    </p>
+
+</div>
+
+
+</section>
+
+<div class="stats-grid">
+
+
+<div class="card stat-card">
+
+    <h3>Total Vehicles</h3>
+
+    <p class="stat-number">
+        {{ total_vehicles }}
+    </p>
+
+</div>
+
+<div class="card stat-card">
+
+    <h3>Available Vehicles</h3>
+
+    <p class="stat-number">
+        {{ available_vehicles }}
+    </p>
+
+</div>
+
+<div class="card stat-card">
+
+    <h3>Total Bookings</h3>
+
+    <p class="stat-number">
+        {{ total_bookings }}
+    </p>
+
+</div>
+
+
+</div>
+
+<h2>Recent Vehicles</h2>
+
+{% if cars %}
+
+
+<div class="featured-grid">
+
+    {% for car in cars %}
+
+        <div class="card">
+
+            <h3>{{ car.title }}</h3>
+
+            <p>
+                {{ car.location }}
+            </p>
+
+            <p>
+                ₦{{ car.price_per_day }} / day
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+{% else %}
+
+
+<div class="card">
+
+    No vehicles listed.
+
+</div>
+
+
+{% endif %}
+
+<h2>Recent Bookings</h2>
+
+{% if bookings %}
+
+
+<div class="featured-grid">
+
+    {% for booking in bookings %}
+
+        <div class="card">
+
+            <p>
+                <strong>Reference:</strong>
+                {{ booking.booking_reference }}
+            </p>
+
+            <p>
+                <strong>Vehicle:</strong>
+                {{ booking.car.title }}
+            </p>
+
+            <p>
+                <strong>Customer:</strong>
+                {{ booking.first_name }}
+                {{ booking.last_name }}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                {{ booking.email }}
+            </p>
+
+            <p>
+                <strong>Pickup:</strong>
+                {{ booking.pickup_date }}
+            </p>
+
+            <p>
+                <strong>Return:</strong>
+                {{ booking.return_date }}
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+{% else %}
+
+<div class="card">
+
+    No bookings yet.
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}

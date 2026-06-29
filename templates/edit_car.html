@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Edit Vehicle</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <label>Vehicle Title</label>
+    <input
+        type="text"
+        name="title"
+        value="{{ car.title }}"
+        required
+    >
+
+    <br><br>
+
+    <label>Location</label>
+    <input
+        type="text"
+        name="location"
+        value="{{ car.location }}"
+        required
+    >
+
+    <br><br>
+
+    <label>Price Per Day</label>
+    <input
+        type="number"
+        name="price_per_day"
+        value="{{ car.price_per_day }}"
+        required
+    >
+
+    <br><br>
+
+    <label>Replace Image</label>
+    <input
+        type="file"
+        name="image"
+    >
+
+    <br><br>
+
+    <label>
+        Available
+        <input
+            type="checkbox"
+            name="available"
+            {% if car.available %}
+                checked
+            {% endif %}
+        >
+    </label>
+
+    <br><br>
+
+    <button type="submit">
+        Update Listing
+    </button>
+
+</form>
+
+{% endblock %}

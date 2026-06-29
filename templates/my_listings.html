@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>My Listings</h1>
+
+{% if cars %}
+
+    {% for car in cars %}
+
+        <div class="card">
+
+            <h3>{{ car.title }}</h3>
+
+            <p>
+                <strong>Location:</strong>
+                {{ car.location }}
+            </p>
+
+            <p>
+                <strong>Price:</strong>
+                ₦{{ car.price_per_day }}
+            </p>
+
+            {% if car.available %}
+
+                <p class="status-available">
+                    Available ✅
+                </p>
+
+            {% else %}
+
+                <p class="status-unavailable">
+                    Unavailable ❌
+                </p>
+
+            {% endif %}
+
+            <a
+                href="{% url 'edit_listing' car.id %}"
+                class="btn"
+            >
+                Edit
+            </a>
+
+            <a
+                href="{% url 'delete_listing' car.id %}"
+                class="btn"
+            >
+                Delete
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="card">
+
+        <p>
+            You have not listed any vehicles yet.
+        </p>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}

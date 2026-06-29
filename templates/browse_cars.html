@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Browse Cars</h1>
+
+<form method="GET">
+
+
+    <input
+        type="text"
+        name="q"
+        placeholder="Search by vehicle or location"
+        value="{{ query }}"
+    >
+    
+    <button
+        type="submit"
+        class="btn"
+    >
+        Search
+    </button>
+
+    
+    </form>
+    
+
+{% if cars %}
+
+
+{% for car in cars %}
+
+    <div class="card">
+
+        {% if car.image %}
+
+            <img
+                src="{{ car.image.url }}"
+                alt="{{ car.title }}"
+                class="car-image"
+            >
+
+        {% endif %}
+
+        <h3>{{ car.title }}</h3>
+
+        <p>
+            <strong>Location:</strong>
+            {{ car.location }}
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            ₦{{ car.price_per_day }} / day
+        </p>
+
+        <p>
+            <strong>Hosted By:</strong>
+            {{ car.owner.username }}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            {{ car.owner.email }}
+        </p>
+
+        {% if car.available %}
+
+            <p class="status-available">
+                Available ✅
+            </p>
+
+            <a
+                href="{% url 'book_car' car.id %}"
+                class="btn"
+            >
+                Book Now
+            </a>
+
+        {% else %}
+
+            <p class="status-unavailable">
+                Unavailable ❌
+            </p>
+
+        {% endif %}
+
+    </div>
+
+{% endfor %}
+
+
+{% else %}
+
+
+<div class="card">
+
+    <p>
+        No cars available.
+    </p>
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}

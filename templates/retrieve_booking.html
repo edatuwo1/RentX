@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Retrieve Booking</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <label>
+        Booking Reference
+    </label>
+
+    <input
+        type="text"
+        name="booking_reference"
+        required
+    >
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<hr>
+
+{% if booking %}
+
+    <h2>Booking Found ✅</h2>
+
+    <p>
+        <strong>Reference:</strong>
+        {{ booking.booking_reference }}
+    </p>
+
+    <p>
+        <strong>Vehicle:</strong>
+        {{ booking.car.title }}
+    </p>
+
+    <p>
+        <strong>Customer:</strong>
+        {{ booking.first_name }}
+        {{ booking.last_name }}
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        {{ booking.email }}
+    </p>
+
+    <p>
+        <strong>Pickup:</strong>
+        {{ booking.pickup_date }}
+    </p>
+
+    <p>
+        <strong>Return:</strong>
+        {{ booking.return_date }}
+    </p>
+
+{% endif %}
+
+{% endblock %}

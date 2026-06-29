@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="manage-booking-page">
+
+    <div class="booking-header">
+
+        <h1>
+            Manage Booking
+        </h1>
+
+        <p>
+            Enter your booking reference to
+            retrieve your booking details.
+        </p>
+
+    </div>
+
+    <div class="booking-form-card">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label>
+                Booking Reference
+            </label>
+
+            <input
+                type="text"
+                name="booking_reference"
+                placeholder="Enter booking reference"
+                required
+            >
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Find Booking
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if booking %}
+
+        <div class="booking-details-card">
+
+            <h2>
+                Booking Details
+            </h2>
+
+            <p>
+                <strong>Reference:</strong>
+                {{ booking.booking_reference }}
+            </p>
+
+            <p>
+                <strong>Vehicle:</strong>
+                {{ booking.car.title }}
+            </p>
+
+            <p>
+                <strong>Customer:</strong>
+                {{ booking.first_name }}
+                {{ booking.last_name }}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                {{ booking.email }}
+            </p>
+
+            <p>
+                <strong>Pickup Date:</strong>
+                {{ booking.pickup_date }}
+            </p>
+
+            <p>
+                <strong>Return Date:</strong>
+                {{ booking.return_date }}
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

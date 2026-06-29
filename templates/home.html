@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="hero">
+
+
+<div class="hero-content">
+
+    <div class="hero-text">
+
+        <h1>
+            Rent Vehicles Across Nigeria
+        </h1>
+
+        <p>
+            Browse trusted vehicles from verified hosts,
+            book in minutes, and travel with confidence.
+        </p>
+
+        <a
+            href="{% url 'browse_cars' %}"
+            class="btn"
+        >
+            Browse Cars
+        </a>
+
+        {% if user.is_authenticated %}
+
+            <a
+                href="{% url 'become_host' %}"
+                class="btn"
+            >
+                Become a Host
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    <div class="hero-image">
+
+        <img
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+            alt="Luxury Car"
+        >
+
+    </div>
+
+</div>
+
+
+</section>
+
+<section class="featured-section">
+
+<h2>Featured Vehicles</h2>
+
+<div class="featured-grid">
+
+    {% for car in featured_cars %}
+
+        <div class="card">
+
+            {% if car.image %}
+
+                <img
+                    src="{{ car.image.url }}"
+                    alt="{{ car.title }}"
+                    class="car-image"
+                >
+
+            {% endif %}
+
+            <h3>{{ car.title }}</h3>
+
+            <p>
+                <strong>Location:</strong>
+                {{ car.location }}
+            </p>
+            
+            <p>
+                <strong>Price:</strong>
+                ₦{{ car.price_per_day }} / day
+            </p>
+            
+            <p>
+                <strong>Hosted By:</strong>
+                {{ car.owner.username }}
+            </p>
+
+            <a
+                href="{% url 'book_car' car.id %}"
+                class="btn"
+            >
+                Book Now
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+<div class="featured-footer">
+
+    <a
+        href="{% url 'browse_cars' %}"
+        class="btn"
+    >
+        View All Vehicles
+    </a>
+
+</div>
+
+
+</section>
+
+<section class="how-it-works">
+
+    <h2>How RentX Works</h2>
+
+    <div class="steps-grid">
+
+        <div class="card">
+
+            <h3>Find the Perfect Vehicle</h3>
+        
+            <p>
+                Browse a variety of vehicles listed by
+                trusted hosts across Nigeria. Compare
+                locations, pricing, and availability to
+                find the option that best fits your trip.
+            </p>
+        
+        </div>
+        
+        <div class="card">
+        
+            <h3>Book in Minutes</h3>
+        
+            <p>
+                Select your preferred vehicle, choose
+                pickup and return dates, and complete
+                your reservation through our simple
+                booking process.
+            </p>
+        
+        </div>
+        
+        <div class="card">
+        
+            <h3>Travel With Confidence</h3>
+        
+            <p>
+                Retrieve your booking details anytime
+                using your booking reference and enjoy
+                a smooth rental experience from start
+                to finish.
+            </p>
+        
+        </div>
+    </div>
+
+</section>
+
+<section class="testimonials">
+
+    <h2>What Our Customers Say</h2>
+
+    <div class="testimonials-grid">
+
+        <div class="card">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p>
+                The booking process was simple
+                and straightforward. I found a
+                vehicle within minutes.
+            </p>
+
+            <strong>— David A.</strong>
+
+        </div>
+
+        <div class="card">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p>
+                RentX made it easy to compare
+                vehicles and book confidently.
+                I would definitely use it again.
+            </p>
+
+            <strong>— Sarah O.</strong>
+
+        </div>
+
+        <div class="card">
+
+            <h3>⭐⭐⭐⭐⭐</h3>
+
+            <p>
+                Listing my vehicle was simple
+                and I received bookings quickly.
+            </p>
+
+            <strong>— Michael E.</strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="host-cta">
+
+    
+        <div class="host-wrapper">
+        
+            <div class="host-content">
+        
+                <h2>
+                    Earn Money With Your Vehicle
+                </h2>
+        
+                
+                    <p>
+                        Turn your vehicle into income by
+                        connecting with renters across Nigeria.
+                    </p>
+            
+        
+                {% if user.is_authenticated %}
+        
+                    <a
+                        href="{% url 'become_host' %}"
+                        class="btn"
+                    >
+                        Become a Host
+                    </a>
+        
+                {% else %}
+        
+                    <a
+                        href="{% url 'register' %}"
+                        class="btn"
+                    >
+                        Create an Account
+                    </a>
+        
+                {% endif %}
+        
+            </div>
+        
+            <div class="host-image">
+
+                <img
+                    src="{% static 'images/host-banner.jpg' %}"
+                    alt="Vehicle Rental Exchange"
+                >
+            
+            </div>
+        
+        </div>
+
+</section>
+
+{% endblock %}

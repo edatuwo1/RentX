@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="host-page">
+
+    <div class="host-header">
+
+        <h1>
+            Become a Host 🚗
+        </h1>
+
+        <p>
+            Turn your vehicle into an income-generating asset.
+            List your car on RentX and connect with renters
+            across Nigeria.
+        </p>
+
+    </div>
+
+    <div class="host-form-card">
+
+        <h2>
+            List Your Vehicle
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <label>Vehicle Title</label>
+            <input
+                type="text"
+                name="title"
+                placeholder="e.g. Toyota Camry 2020"
+                required
+            >
+
+            <label>Location</label>
+            <input
+                type="text"
+                name="location"
+                placeholder="e.g. Abuja"
+                required
+            >
+
+            <label>Price Per Day</label>
+            <input
+                type="number"
+                name="price_per_day"
+                placeholder="e.g. 25000"
+                required
+            >
+
+            <label>Vehicle Image</label>
+            <input
+                type="file"
+                name="image"
+                required
+            >
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Create Listing
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
