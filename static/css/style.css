@@ -184,6 +184,19 @@ select {
 }
 
 /* =========================
+CHECKBOX
+========================= */
+
+input[type="checkbox"] {
+    width: auto;
+
+    padding: 0;
+
+    margin: 0 8px 0 0;
+}
+
+
+/* =========================
 CARDS
 ========================= */
 
@@ -894,4 +907,459 @@ DASHBOARD HERO
         max-height: 220px;
     }
 
+}
+
+/* =========================
+MY BOOKINGS
+========================= */
+
+.booking-grid {
+
+    display: grid;
+
+    gap: 30px;
+
+    margin-top: 40px;
+}
+
+.booking-card {
+
+    display: flex;
+
+    gap: 25px;
+
+    background: var(--white);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+    transition: 0.3s;
+}
+
+.booking-card:hover {
+
+    transform: translateY(-5px);
+}
+
+.booking-card img {
+
+    width: 280px;
+
+    height: 220px;
+
+    object-fit: cover;
+}
+
+.booking-info {
+
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    flex: 1;
+}
+
+.booking-info h2 {
+
+    margin-bottom: 10px;
+}
+
+.empty-state {
+
+    text-align: center;
+
+    background: var(--white);
+
+    padding: 60px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+    margin-top: 40px;
+}
+
+.empty-state .btn {
+
+    margin-top: 20px;
+}
+
+/* =========================
+RESPONSIVE MY BOOKINGS
+========================= */
+
+@media (max-width:768px){
+
+    .booking-card{
+
+        flex-direction:column;
+    }
+
+    .booking-card img{
+
+        width:100%;
+        height:220px;
+    }
+
+}
+
+/* =========================
+BOOKING DETAILS
+========================= */
+
+.booking-details-card{
+
+    display:flex;
+
+    gap:40px;
+
+    background:var(--white);
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    margin-top:40px;
+}
+
+.booking-details-image{
+
+    width:380px;
+
+    height:280px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+}
+
+.booking-details-info{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+    color:var(--text);
+}
+
+.booking-details-info h1{
+
+    margin-bottom:10px;
+
+    color:var(--text);
+}
+
+.booking-details-info p{
+
+    color:var(--text);
+}
+
+.booking-details-info strong{
+
+    color:var(--text);
+}
+
+.booking-details-info .btn{
+
+    margin-top:20px;
+
+    width:fit-content;
+}
+
+@media(max-width:768px){
+
+    .booking-details-card{
+
+        flex-direction:column;
+    }
+
+    .booking-details-image{
+
+        width:100%;
+    }
+
+}
+
+/* =========================
+BOOKING SUMMARY
+========================= */
+
+.booking-summary-card{
+
+    background:var(--white);
+
+    padding:30px;
+
+    border-radius:20px;
+
+    margin-top:35px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.booking-summary-card h2{
+
+    color:var(--primary);
+
+    margin-bottom:20px;
+}
+
+.booking-summary-card p{
+
+    color:var(--text);
+
+    margin-bottom:12px;
+}
+
+.booking-summary-card .btn{
+
+    margin-top:20px;
+
+    width:fit-content;
+}
+
+/* =========================
+BOOKING SUCCESS
+========================= */
+
+.booking-success-page{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-top:40px;
+}
+
+.booking-success-card{
+
+    background:var(--white);
+
+    padding:45px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    max-width:700px;
+
+    width:100%;
+
+    text-align:center;
+}
+
+.success-icon{
+
+    font-size:60px;
+
+    margin-bottom:20px;
+}
+
+.success-message{
+
+    margin:20px 0 30px;
+
+    color:var(--text);
+}
+
+.booking-reference-box{
+
+    background:var(--light);
+
+    padding:20px;
+
+    border-radius:15px;
+
+    margin-bottom:30px;
+}
+
+.booking-reference-box p{
+
+    margin-bottom:8px;
+}
+
+.booking-reference-box h2{
+
+    color:var(--primary);
+
+    letter-spacing:2px;
+}
+
+.booking-summary{
+
+    text-align:left;
+
+    margin-bottom:35px;
+}
+
+.booking-summary p{
+
+    margin-bottom:12px;
+}
+
+.booking-success-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+.secondary-btn{
+
+    background:var(--dark);
+}
+
+.secondary-btn:hover{
+
+    opacity:.9;
+}
+
+/* =========================
+DASHBOARD STATS
+========================= */
+
+.stat-card{
+
+    text-align:center;
+
+    padding:35px 25px;
+
+    transition:0.3s ease;
+}
+
+.stat-card:hover{
+
+    transform:translateY(-6px);
+}
+
+.stat-icon{
+
+    font-size:40px;
+
+    margin-bottom:15px;
+}
+
+.stat-card h3{
+
+    color:#555;
+
+    font-size:18px;
+
+    margin-bottom:15px;
+}
+
+.stat-number{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    color:var(--primary);
+}
+
+/* =========================
+BOOKING STATUS
+========================= */
+
+.booking-status{
+
+    display:inline-block;
+
+    background:#d1fae5;
+
+    color:#065f46;
+
+    padding:4px 10px;
+
+    border-radius:20px;
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+/* =========================
+BOOKING VEHICLE IMAGE
+========================= */
+
+.booking-vehicle-image {
+    width: 100%;
+    max-width: 700px;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 25px;
+    border-radius: 12px;
+}
+
+
+/* =========================
+EDIT LISTING
+========================= */
+
+.edit-listing-section {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.edit-listing-card {
+    background-color: #1f2937;
+    padding: 40px;
+    border-radius: 12px;
+    color: white;
+}
+
+.edit-listing-card h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.edit-listing-intro {
+    margin-bottom: 30px;
+}
+
+.edit-listing-card label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: white;
+}
+
+.edit-listing-card input {
+    margin-bottom: 20px;
+}
+
+.edit-listing-card input[type="checkbox"] {
+    width: auto;
+    margin: 0 8px 0 0;
+}
+
+.availability-option label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.edit-listing-card .btn {
+    display: inline-block;
 }

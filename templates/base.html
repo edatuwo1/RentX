@@ -4,13 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!DOCTYPE html>
-
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
 <title>RentX</title>
 
@@ -76,18 +69,12 @@
         class="hamburger-menu"
     >
 
-        <a href="{% url 'browse_cars' %}">
-            Browse Cars
-        </a>
-
-        <a href="{% url 'manage_booking' %}">
-            Manage Booking
-        </a>
 
         {% if user.is_authenticated %}
 
-            <a href="{% url 'dashboard' %}">
-                Dashboard
+
+            <a href="{% url 'my_bookings' %}">
+                My Bookings
             </a>
 
             <a href="{% url 'my_listings' %}">
@@ -112,17 +99,14 @@
 
         {% else %}
 
-            <a href="{% url 'login' %}">
-                Login
-            </a>
-
-            <a href="{% url 'register' %}">
-                Register
+            <a href="{% url 'become_host' %}">
+                Become a Host
             </a>
 
             <a href="{% url 'help' %}">
                 Help
             </a>
+
 
             <a href="{% url 'contact' %}">
                 Contact
@@ -160,6 +144,7 @@
 </main>
 
 <!-- Footer -->
+
 <footer class="footer">
 
     <div class="footer-content">
@@ -174,6 +159,7 @@
             </p>
 
         </div>
+
 
         <div class="footer-links">
 
@@ -191,11 +177,12 @@
                 Become a Host
             </a>
 
-            <a href="{% url 'contact' %}">
-                Contact
+            <a href="{% url 'manage_booking' %}">
+                Manage Booking
             </a>
 
         </div>
+
 
         <div class="footer-links">
 
@@ -205,25 +192,26 @@
                 Help Center
             </a>
 
-            <a href="{% url 'manage_booking' %}">
-                Manage Booking
-            </a>
-
-            <a href="{% url 'retrieve_booking' %}">
-                Retrieve Booking
+            <a href="{% url 'contact' %}">
+                Contact
             </a>
 
         </div>
 
     </div>
 
+
     <hr>
 
+
     <p class="footer-copy">
+
         © 2026 RentX. All rights reserved.
+
     </p>
 
 </footer>
+
 
 <script>
 

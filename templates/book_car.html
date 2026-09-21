@@ -2,71 +2,166 @@
 
 {% block content %}
 
-<h1>Book Vehicle</h1>
+<section class="booking-page">
 
-<h2>{{ car.title }}</h2>
+    <div class="booking-container">
 
-<p>
-    Location: {{ car.location }}
-</p>
+        <!-- =========================
+             VEHICLE INFORMATION
+        ========================== -->
 
-<p>
-    ₦{{ car.price_per_day }} / day
-</p>
+        <div class="booking-vehicle-card">
 
-<form method="POST">
+            <h1>Reserve Your Vehicle</h1>
 
-    {% csrf_token %}
+            {% if car.image %}
 
-    <label>First Name</label>
-    <input
-        type="text"
-        name="first_name"
-        required
-    >
+                <img
+                    src="{{ car.image.url }}"
+                    alt="{{ car.title }}"
+                    class="booking-vehicle-image"
+                >
 
-    <br><br>
+            {% endif %}
 
-    <label>Last Name</label>
-    <input
-        type="text"
-        name="last_name"
-        required
-    >
+            <div class="booking-vehicle-info">
 
-    <br><br>
+                <h2>
+                    {{ car.title }}
+                </h2>
 
-    <label>Email</label>
-    <input
-        type="email"
-        name="email"
-        required
-    >
+                <p>
+                    <strong>Location:</strong>
+                    {{ car.location }}
+                </p>
 
-    <br><br>
+                <p class="booking-vehicle-price">
+                    ₦{{ car.price_per_day }} / day
+                </p>
 
-    <label>Pickup Date</label>
-    <input
-        type="date"
-        name="pickup_date"
-        required
-    >
+                {% if car.available %}
 
-    <br><br>
+                    <p class="status-available">
+                        Available ✅
+                    </p>
 
-    <label>Return Date</label>
-    <input
-        type="date"
-        name="return_date"
-        required
-    >
+                {% else %}
 
-    <br><br>
+                    <p class="status-unavailable">
+                        Unavailable ❌
+                    </p>
 
-    <button type="submit">
-        Confirm Booking
-    </button>
+                {% endif %}
 
-</form>
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             BOOKING FORM
+        ========================== -->
+
+        <div class="booking-form-card">
+
+            <h2>Reservation Details</h2>
+
+            <p class="booking-intro">
+                Enter your details and select your pickup and return dates.
+            </p>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+
+                    <label for="first_name">
+                        First Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="first_name"
+                        name="first_name"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="last_name">
+                        Last Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="pickup_date">
+                        Pickup Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="pickup_date"
+                        name="pickup_date"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="return_date">
+                        Return Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="return_date"
+                        name="return_date"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn booking-submit"
+                >
+                    Confirm Booking
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}

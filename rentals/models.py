@@ -51,6 +51,14 @@ class Booking(models.Model):
         related_name='bookings'
     )
 
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='bookings'
+    )
+
     first_name = models.CharField(
         max_length=100
     )
@@ -89,5 +97,3 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
-        

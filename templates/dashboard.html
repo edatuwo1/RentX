@@ -8,7 +8,7 @@
 <div class="dashboard-hero-content">
 
     <h1>
-        Welcome Back
+        Welcome Back, {{ user.username }} 👋
     </h1>
 
     <p>
@@ -24,37 +24,47 @@
 <div class="stats-grid">
 
 
-<div class="card stat-card">
+    <div class="card stat-card">
 
-    <h3>Total Vehicles</h3>
-
-    <p class="stat-number">
-        {{ total_vehicles }}
-    </p>
-
-</div>
-
-<div class="card stat-card">
-
-    <h3>Available Vehicles</h3>
-
-    <p class="stat-number">
-        {{ available_vehicles }}
-    </p>
-
-</div>
-
-<div class="card stat-card">
-
-    <h3>Total Bookings</h3>
-
-    <p class="stat-number">
-        {{ total_bookings }}
-    </p>
-
-</div>
-
-
+        <div class="stat-icon">
+            🚗
+        </div>
+    
+        <h3>Total Vehicles</h3>
+    
+        <p class="stat-number">
+            {{ total_vehicles }}
+        </p>
+    
+    </div>
+    
+    <div class="card stat-card">
+    
+        <div class="stat-icon">
+            ✅
+        </div>
+    
+        <h3>Available Vehicles</h3>
+    
+        <p class="stat-number">
+            {{ available_vehicles }}
+        </p>
+    
+    </div>
+    
+    <div class="card stat-card">
+    
+        <div class="stat-icon">
+            📅
+        </div>
+    
+        <h3>Total Bookings</h3>
+    
+        <p class="stat-number">
+            {{ total_bookings }}
+        </p>
+    
+    </div>
 </div>
 
 <h2>Recent Vehicles</h2>
@@ -66,20 +76,27 @@
 
     {% for car in cars %}
 
-        <div class="card">
+    <div class="card">
 
-            <h3>{{ car.title }}</h3>
-
-            <p>
-                {{ car.location }}
-            </p>
-
-            <p>
-                ₦{{ car.price_per_day }} / day
-            </p>
-
-        </div>
-
+        <h3>{{ car.title }}</h3>
+    
+        <p>
+            {{ car.location }}
+        </p>
+    
+        <p>
+            ₦{{ car.price_per_day }} / day
+        </p>
+    
+        <a
+            href="{% url 'edit_listing' car.id %}"
+            class="btn"
+        >
+            Edit Listing
+        </a>
+    
+    </div>
+    
     {% endfor %}
 
 </div>
@@ -89,10 +106,19 @@
 
 
 <div class="card">
-
-    No vehicles listed.
-
+    You haven't listed any vehicles yet.
 </div>
+
+<br>
+
+    <a
+        href="{% url 'become_host' %}"
+        class="btn"
+    >
+        Become a Host
+    </a>
+
+
 
 
 {% endif %}
@@ -100,7 +126,6 @@
 <h2>Recent Bookings</h2>
 
 {% if bookings %}
-
 
 <div class="featured-grid">
 
@@ -125,11 +150,6 @@
             </p>
 
             <p>
-                <strong>Email:</strong>
-                {{ booking.email }}
-            </p>
-
-            <p>
                 <strong>Pickup:</strong>
                 {{ booking.pickup_date }}
             </p>
@@ -139,21 +159,34 @@
                 {{ booking.return_date }}
             </p>
 
+            <a
+                href="{% url 'booking_details' booking.id %}"
+                class="btn"
+            >
+                View Booking
+            </a>
+
         </div>
 
     {% endfor %}
 
 </div>
 
-
 {% else %}
 
 <div class="card">
 
-    No bookings yet.
+    <p>
+        No bookings yet.
+    </p>
+
+    <br>
+
+    <p>
+        Bookings will appear here when customers reserve your vehicles.
+    </p>
 
 </div>
-
 
 {% endif %}
 

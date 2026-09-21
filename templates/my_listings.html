@@ -6,63 +6,95 @@
 
 {% if cars %}
 
+<div class="featured-grid">
+
     {% for car in cars %}
-
-        <div class="card">
-
-            <h3>{{ car.title }}</h3>
-
-            <p>
-                <strong>Location:</strong>
-                {{ car.location }}
-            </p>
-
-            <p>
-                <strong>Price:</strong>
-                ₦{{ car.price_per_day }}
-            </p>
-
-            {% if car.available %}
-
-                <p class="status-available">
-                    Available ✅
-                </p>
-
-            {% else %}
-
-                <p class="status-unavailable">
-                    Unavailable ❌
-                </p>
-
-            {% endif %}
-
-            <a
-                href="{% url 'edit_listing' car.id %}"
-                class="btn"
-            >
-                Edit
-            </a>
-
-            <a
-                href="{% url 'delete_listing' car.id %}"
-                class="btn"
-            >
-                Delete
-            </a>
-
-        </div>
-
-    {% endfor %}
-
-{% else %}
 
     <div class="card">
 
+        {% if car.image %}
+
+            <img
+                src="{{ car.image.url }}"
+                alt="{{ car.title }}"
+                class="car-image"
+            >
+
+        {% endif %}
+
+        <h3>
+            {{ car.title }}
+        </h3>
+
         <p>
-            You have not listed any vehicles yet.
+            <strong>Location:</strong>
+            {{ car.location }}
         </p>
 
+        <p>
+            <strong>Price:</strong>
+            ₦{{ car.price_per_day }} / day
+        </p>
+
+        <p>
+            {{ car.description }}
+        </p>
+
+        {% if car.available %}
+
+            <p class="status-available">
+                Available ✅
+            </p>
+
+        {% else %}
+
+            <p class="status-unavailable">
+                Unavailable ❌
+            </p>
+
+        {% endif %}
+
+        <a
+            href="{% url 'edit_listing' car.id %}"
+            class="btn"
+        >
+            Edit Listing
+        </a>
+
+        <a
+            href="{% url 'delete_listing' car.id %}"
+            class="btn"
+        >
+            Delete Listing
+        </a>
+
     </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+        No Listings Yet
+    </h2>
+
+    <p>
+        You haven't listed any vehicles yet.
+        Start earning by listing your first vehicle on RentX.
+    </p>
+
+    <a
+        href="{% url 'become_host' %}"
+        class="btn"
+    >
+        Become a Host
+    </a>
+
+</div>
 
 {% endif %}
 

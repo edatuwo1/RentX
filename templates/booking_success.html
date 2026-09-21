@@ -1,39 +1,113 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
-<h1>Booking Successful ✅</h1>
+<section class="booking-success-page">
 
-<p>
-    Your booking has been submitted successfully.
-</p>
+    <div class="booking-success-card">
 
-<hr>
+        <div class="success-icon">
 
-<p>
-    <strong>Booking Reference:</strong>
-    {{ booking.booking_reference }}
-</p>
+            ✅
 
-<p>
-    <strong>Vehicle:</strong>
-    {{ booking.car.title }}
-</p>
+        </div>
 
-<p>
-    <strong>Pickup Date:</strong>
-    {{ booking.pickup_date }}
-</p>
+        <h1>
 
-<p>
-    <strong>Return Date:</strong>
-    {{ booking.return_date }}
-</p>
+            Booking Confirmed!
 
-<hr>
+        </h1>
 
-<a href="{% url 'browse_cars' %}">
-    Browse More Cars
-</a>
+        <p class="success-message">
+
+            Thank you for choosing RentX.
+
+            <br>
+
+            Your booking has been created successfully.
+
+        </p>
+
+        <div class="booking-reference-box">
+
+            <p>
+
+                Booking Reference
+
+            </p>
+
+            <h2>
+
+                {{ booking.booking_reference }}
+
+            </h2>
+
+        </div>
+
+        <div class="booking-summary">
+
+            <p>
+
+                <strong>Vehicle:</strong>
+
+                {{ booking.car.title }}
+
+            </p>
+
+            <p>
+
+                <strong>Pickup Date:</strong>
+
+                {{ booking.pickup_date }}
+
+            </p>
+
+            <p>
+
+                <strong>Return Date:</strong>
+
+                {{ booking.return_date }}
+
+            </p>
+
+        </div>
+
+
+        <div class="booking-success-buttons">
+
+            {% if user.is_authenticated %}
+        
+                <a
+                    href="{% url 'booking_details' booking.id %}"
+                    class="btn"
+                >
+                    View Booking
+                </a>
+        
+            {% else %}
+        
+                <a
+                    href="{% url 'manage_booking' %}"
+                    class="btn"
+                >
+                    Manage Booking
+                </a>
+        
+            {% endif %}
+        
+            <a
+                href="{% url 'browse_cars' %}"
+                class="btn secondary-btn"
+            >
+                Browse More Cars
+            </a>
+        
+        </div>
+
+
+
+    </div>
+
+</section>
 
 {% endblock %}

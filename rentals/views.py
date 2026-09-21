@@ -1,10 +1,12 @@
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Car, Booking
+from datetime import datetime
+from django.utils import timezone
 
 
 # =========================
@@ -141,6 +143,23 @@ def dashboard(request):
         }
     )
 
+# =========================
+# MY BOOKINGS
+# =========================
+@login_required
+def my_bookings(request):
+
+    bookings = Booking.objects.filter(
+        user=request.user
+    ).order_by('-created_at')
+
+    return render(
+        request,
+        'my_bookings.html',
+        {
+            'bookings': bookings
+        }
+    )
 
 # =========================
 # MY LISTINGS
@@ -293,21 +312,113 @@ def browse_cars(request):
 # =========================
 def book_car(request, car_id):
 
-    car = Car.objects.get(id=car_id)
+    car = Car.objects.get(
+        id=car_id
+    )
 
     if request.method == "POST":
 
-        booking=Booking.objects.create(
+        # Get dates from form
+        pickup_date = datetime.strptime(
+            request.POST.get("pickup_date"),
+            "%Y-%m-%d"
+        ).date()
+
+        return_date = datetime.strptime(
+            request.POST.get("return_date"),
+            "%Y-%m-%d"
+        ).date()
+
+        today = timezone.now().date()
+
+        # Pickup date cannot be in the past
+        if pickup_date < today:
+
+            messages.error(
+                request,
+                "Pickup date cannot be in the past."
+            )
+
+            return render(
+                request,
+                "book_car.html",
+                {
+                    "car": car
+                }
+            )
+
+        # Return date must be after pickup date
+        if return_date <= pickup_date:
+
+            messages.error(
+                request,
+                "Return date must be after the pickup date."
+            )
+
+            return render(
+                request,
+                "book_car.html",
+                {
+                    "car": car
+                }
+            )
+
+        # Check if vehicle is already booked
+        existing_booking = Booking.objects.filter(
+
             car=car,
+
+            pickup_date__lt=return_date,
+
+            return_date__gt=pickup_date
+
+        ).exists()
+
+        if existing_booking:
+
+            messages.error(
+
+                request,
+
+                "This vehicle is already booked for the selected dates."
+
+            )
+
+            return render(
+
+                request,
+
+                "book_car.html",
+
+                {
+                    "car": car
+                }
+
+            )
+
+        # Create booking
+        booking = Booking.objects.create(
+
+            car=car,
+
+            user=request.user if request.user.is_authenticated else None,
+
             first_name=request.POST.get("first_name"),
+
             last_name=request.POST.get("last_name"),
+
             email=request.POST.get("email"),
-            pickup_date=request.POST.get("pickup_date"),
-            return_date=request.POST.get("return_date")
+
+            pickup_date=pickup_date,
+
+            return_date=return_date
+
         )
 
-        return redirect("booking_success",
-        booking_id=booking.id)
+        return redirect(
+            "booking_success",
+            booking_id=booking.id
+        )
 
     return render(
         request,
@@ -316,8 +427,6 @@ def book_car(request, car_id):
             "car": car
         }
     )
-
-
 # =========================
 # BOOKING SUCCESS
 # =========================
@@ -335,68 +444,84 @@ def booking_success(request, booking_id):
         }
     )
 
-
-
 # =========================
-# RETRIEVE BOOKING
+# BOOKING DETAILS
 # =========================
-def retrieve_booking(request):
+@login_required
+def booking_details(request, booking_id):
 
-    booking = None
+    booking = get_object_or_404(
+        Booking,
+        id=booking_id
+    )
 
-    if request.method == "POST":
+    # Customer OR Host can view
+    if (
+        booking.user != request.user
+        and booking.car.owner != request.user
+    ):
 
-        reference = request.POST.get(
-            "booking_reference"
+        messages.error(
+            request,
+            "You do not have permission to view this booking."
         )
 
-        try:
-
-            booking = Booking.objects.get(
-                booking_reference=reference
-            )
-
-        except Booking.DoesNotExist:
-
-            messages.error(
-                request,
-                "Booking not found."
-            )
+        return redirect("dashboard")
 
     return render(
         request,
-        "retrieve_booking.html",
+        "booking_details.html",
         {
             "booking": booking
         }
-    )    
-
-
+    )
+    
+    
 
 # =========================
 # MANAGE BOOKING
 # =========================
+
 def manage_booking(request):
 
     booking = None
 
     if request.method == "POST":
 
+        # NOTE: Get the booking reference entered by the customer.
         reference = request.POST.get(
             "booking_reference"
         )
 
+        # NOTE: Get the customer's last name.
+        last_name = request.POST.get(
+            "last_name"
+        )
+
         try:
 
+            # NOTE: Both the booking reference and last name
+            # must match the same booking.
+            #
+            # __iexact makes the comparison case-insensitive.
             booking = Booking.objects.get(
-                booking_reference=reference
+                booking_reference__iexact=reference,
+                last_name__iexact=last_name
             )
+
+            # NOTE: Save the booking ID in the session so
+            # the customer can access the booking details.
+            request.session[
+                "retrieved_booking"
+            ] = booking.id
 
         except Booking.DoesNotExist:
 
+            # NOTE: If either the reference or last name
+            # is incorrect, no booking is returned.
             messages.error(
                 request,
-                "Booking not found."
+                "Booking not found. Please check your booking reference and last name."
             )
 
     return render(

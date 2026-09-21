@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>
+        My Bookings
+    </h1>
+
+    <p>
+        View all the vehicles you've booked.
+    </p>
+
+</div>
+
+{% if bookings %}
+
+<div class="booking-grid">
+
+    {% for booking in bookings %}
+
+    <div class="booking-card">
+
+        <img
+            src="{{ booking.car.image.url }}"
+            alt="{{ booking.car.title }}"
+        >
+
+        <div class="booking-info">
+
+            <h2>
+                {{ booking.car.title }}
+            </h2>
+
+            <p>
+                <strong>Reference:</strong>
+                {{ booking.booking_reference }}
+            </p>
+
+            <p>
+                <strong>Customer:</strong>
+                {{ booking.first_name }}
+                {{ booking.last_name }}
+            </p>
+
+            <p>
+                <strong>Pickup:</strong>
+                {{ booking.pickup_date }}
+            </p>
+
+            <p>
+                <strong>Return:</strong>
+                {{ booking.return_date }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+
+                <span class="booking-status">
+                    Active
+                </span>
+
+            </p>
+
+            <a
+                href="{% url 'booking_details' booking.id %}"
+                class="btn"
+            >
+                View Booking
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>
+        No Bookings Yet
+    </h2>
+
+    <p>
+        You haven't booked any vehicles yet.
+        Browse our available vehicles to make your first reservation.
+    </p>
+
+    <a
+        href="{% url 'browse_cars' %}"
+        class="btn"
+    >
+        Browse Cars
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

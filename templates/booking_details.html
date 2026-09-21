@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="booking-details-card">
+
+    <img
+        src="{{ booking.car.image.url }}"
+        alt="{{ booking.car.title }}"
+        class="booking-details-image"
+    >
+
+    <div class="booking-details-info">
+
+        <h1>
+            {{ booking.car.title }}
+        </h1>
+
+        <p>
+            <strong>Location:</strong>
+            {{ booking.car.location }}
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            ₦{{ booking.car.price_per_day }} / day
+        </p>
+
+        <hr>
+
+        <p>
+            <strong>Booking Reference:</strong>
+            {{ booking.booking_reference }}
+        </p>
+
+        <p>
+            <strong>Customer:</strong>
+            {{ booking.first_name }}
+            {{ booking.last_name }}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            {{ booking.email }}
+        </p>
+
+        <p>
+            <strong>Pickup Date:</strong>
+            {{ booking.pickup_date }}
+        </p>
+
+        <p>
+            <strong>Return Date:</strong>
+            {{ booking.return_date }}
+        </p>
+
+        <a
+            href="{% url 'browse_cars' %}"
+            class="btn"
+        >
+            Browse More Cars
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

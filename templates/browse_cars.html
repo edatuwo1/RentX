@@ -4,8 +4,7 @@
 
 <h1>Browse Cars</h1>
 
-<form method="GET">
-
+<form method="GET" class="search-form">
 
     <input
         type="text"
@@ -13,7 +12,7 @@
         placeholder="Search by vehicle or location"
         value="{{ query }}"
     >
-    
+
     <button
         type="submit"
         class="btn"
@@ -21,87 +20,86 @@
         Search
     </button>
 
-    
-    </form>
-    
+</form>
 
 {% if cars %}
 
+<div class="featured-grid">
 
-{% for car in cars %}
+    {% for car in cars %}
 
-    <div class="card">
+        <div class="card">
 
-        {% if car.image %}
+            {% if car.image %}
 
-            <img
-                src="{{ car.image.url }}"
-                alt="{{ car.title }}"
-                class="car-image"
-            >
+                <img
+                    src="{{ car.image.url }}"
+                    alt="{{ car.title }}"
+                    class="car-image"
+                >
 
-        {% endif %}
+            {% endif %}
 
-        <h3>{{ car.title }}</h3>
+            <h3>{{ car.title }}</h3>
 
-        <p>
-            <strong>Location:</strong>
-            {{ car.location }}
-        </p>
-
-        <p>
-            <strong>Price:</strong>
-            ₦{{ car.price_per_day }} / day
-        </p>
-
-        <p>
-            <strong>Hosted By:</strong>
-            {{ car.owner.username }}
-        </p>
-
-        <p>
-            <strong>Email:</strong>
-            {{ car.owner.email }}
-        </p>
-
-        {% if car.available %}
-
-            <p class="status-available">
-                Available ✅
+            <p>
+                <strong>Location:</strong>
+                {{ car.location }}
             </p>
 
-            <a
-                href="{% url 'book_car' car.id %}"
-                class="btn"
-            >
-                Book Now
-            </a>
-
-        {% else %}
-
-            <p class="status-unavailable">
-                Unavailable ❌
+            <p>
+                <strong>Price:</strong>
+                ₦{{ car.price_per_day }} / day
             </p>
 
-        {% endif %}
+            <p>
+                <strong>Hosted By:</strong>
+                {{ car.owner.username }}
+            </p>
 
-    </div>
+            {% if car.available %}
 
-{% endfor %}
+                <p class="status-available">
+                    Available ✅
+                </p>
 
+                <a
+                    href="{% url 'book_car' car.id %}"
+                    class="btn"
+                >
+                    Book Now
+                </a>
+
+            {% else %}
+
+                <p class="status-unavailable">
+                    Unavailable ❌
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
 
 {% else %}
 
-
 <div class="card">
 
+    <h3>
+        No Vehicles Found
+    </h3>
+
     <p>
-        No cars available.
+        No vehicles match your search.
+        Try another vehicle name or location.
     </p>
 
 </div>
 
-
 {% endif %}
 
 {% endblock %}
+```

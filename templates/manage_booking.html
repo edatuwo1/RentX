@@ -11,8 +11,8 @@
         </h1>
 
         <p>
-            Enter your booking reference to
-            retrieve your booking details.
+            Enter your booking reference and last name
+            to retrieve your booking details.
         </p>
 
     </div>
@@ -34,6 +34,17 @@
                 required
             >
 
+            <label>
+                Last Name
+            </label>
+
+            <input
+                type="text"
+                name="last_name"
+                placeholder="Enter last name"
+                required
+            >
+
             <button
                 type="submit"
                 class="btn"
@@ -47,10 +58,10 @@
 
     {% if booking %}
 
-        <div class="booking-details-card">
+        <div class="booking-summary-card">
 
             <h2>
-                Booking Details
+                Booking Found
             </h2>
 
             <p>
@@ -67,11 +78,6 @@
                 <strong>Customer:</strong>
                 {{ booking.first_name }}
                 {{ booking.last_name }}
-            </p>
-
-            <p>
-                <strong>Email:</strong>
-                {{ booking.email }}
             </p>
 
             <p>
