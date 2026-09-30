@@ -21,13 +21,32 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@7@+bsi2&h5fe-d=ei5g1n0efx=-sv41y498xq%$lq!x!c78o='
+# NOTE: Use Render's SECRET_KEY in production.
+# NOTE: The fallback keeps local development working.
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-local-development-key'
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# NOTE: DEBUG stays on locally but turns off automatically on Render.
+DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ["*"]
+# NOTE: Start with no allowed hosts.
+ALLOWED_HOSTS = []
 
+# NOTE: Render provides this hostname automatically.
+RENDER_EXTERNAL_HOSTNAME = os.environ.get(
+    'RENDER_EXTERNAL_HOSTNAME'
+)
+
+# NOTE: Allow the Render hostname when deployed.
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# NOTE: Allow Django's local development addresses.
+if DEBUG:
+    ALLOWED_HOSTS.append('127.0.0.1')
+    ALLOWED_HOSTS.append('localhost')
 
 # Application definition
 
