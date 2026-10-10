@@ -12,8 +12,10 @@ __pycache__/
 # Environment Variables
 .env
 
-# Media Uploads
-media/
+# NOTE: Ignore uploaded media except the existing car images needed for the demo.
+media/*
+!media/cars/
+!media/cars/**
 
 # VS Code
 .vscode/
