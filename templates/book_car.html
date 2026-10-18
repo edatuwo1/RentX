@@ -12,14 +12,7 @@
             <h1>Reserve Your Vehicle</h1>
 
             {% if car.image %}
-                {% with image_name=car.image.name|cut:"cars/" %}
-                    <!-- NOTE: Loads the existing demo image from static/images/cars/. -->
-                    <img
-                        src="{% static 'images/cars/' %}{{ image_name }}"
-                        alt="{{ car.title }}"
-                        class="booking-vehicle-image"
-                    >
-                {% endwith %}
+            <img src="{{ car.image.url }}" alt="{{ car.title }}" class="booking-vehicle-image">
             {% endif %}
 
             <div class="booking-vehicle-info">

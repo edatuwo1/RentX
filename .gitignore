@@ -24,4 +24,7 @@ media/*
 .DS_Store
 
 # Windows
-Thumbs.dbdb.sqlite3
+Thumbs.db
+
+#local database 
+db.sqlite3

@@ -15,15 +15,8 @@
     <div class="card">
 
         {% if car.image %}
-            {# NOTE: Display the copied static image for existing demo cars. #}
-            {% with image_name=car.image.name|cut:"cars/" %}
-                <img
-                    src="{% static 'images/cars/' %}{{ image_name }}"
-                    alt="{{ car.title }}"
-                    class="car-image"
-                >
-            {% endwith %}
-        {% endif %}
+    <img src="{{ car.image.url }}" alt="{{ car.title }}" class="car-image">
+    {% endif %}
 
         <h3>
             {{ car.title }}

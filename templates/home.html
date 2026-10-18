@@ -18,11 +18,11 @@
                 Browse Cars
             </a>
 
-            {% if user.is_authenticated %}
+            
                 <a href="{% url 'become_host' %}" class="btn">
                     Become a Host
                 </a>
-            {% endif %}
+            
         </div>
 
         <div class="hero-image">
@@ -42,15 +42,8 @@
             <div class="card">
 
                 {% if car.image %}
-                    {# NOTE: Use the static copy of the existing demo car image. #}
-                    {% with image_name=car.image.name|cut:"cars/" %}
-                        <img
-                            src="{% static 'images/cars/' %}{{ image_name }}"
-                            alt="{{ car.title }}"
-                            class="car-image"
-                        >
-                    {% endwith %}
-                {% endif %}
+                <img src="{{ car.image.url }}" alt="{{ car.title }}" class="car-image">
+            {% endif %}
 
                 <h3>{{ car.title }}</h3>
 
