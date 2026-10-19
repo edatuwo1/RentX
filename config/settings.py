@@ -184,10 +184,7 @@ LOGGING = {
 # Without the keys, uploads stay local, so local development is unchanged.
 if os.environ.get('CLOUDINARY_CLOUD_NAME'):
 
-    INSTALLED_APPS.insert(
-        INSTALLED_APPS.index('django.contrib.staticfiles'),
-        'cloudinary_storage'
-    )
+    
     INSTALLED_APPS.append('cloudinary')
 
     CLOUDINARY_STORAGE = {
