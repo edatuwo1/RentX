@@ -312,9 +312,17 @@ def browse_cars(request):
 # =========================
 def book_car(request, car_id):
 
-    car = Car.objects.get(
-        id=car_id
-    )
+    car = get_object_or_404(Car, id=car_id)
+
+    # Unavailable cars cannot be booked
+    if not car.available:
+
+        messages.error(
+            request,
+            "Sorry, this vehicle is currently unavailable."
+        )
+
+        return redirect("browse_cars")
 
     if request.method == "POST":
 

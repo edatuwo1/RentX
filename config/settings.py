@@ -179,3 +179,28 @@ LOGGING = {
         },
     },
 }
+
+# Store uploaded photos on Cloudinary when its keys are set (e.g. on Render).
+# Without the keys, uploads stay local, so local development is unchanged.
+if os.environ.get('CLOUDINARY_CLOUD_NAME'):
+
+    INSTALLED_APPS.insert(
+        INSTALLED_APPS.index('django.contrib.staticfiles'),
+        'cloudinary_storage'
+    )
+    INSTALLED_APPS.append('cloudinary')
+
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    }
+
+    STORAGES = {
+        'default': {
+            'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
+        },
+        'staticfiles': {
+            'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        },
+    }
