@@ -1363,3 +1363,14 @@ EDIT LISTING
 .edit-listing-card .btn {
     display: inline-block;
 }
+
+/* Extra menu links, shown only on phones */
+.hamburger-menu a.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hamburger-menu a.mobile-only {
+        display: block;
+    }
+}

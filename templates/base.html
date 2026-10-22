@@ -69,6 +69,15 @@
         class="hamburger-menu"
     >
 
+    <a href="{% url 'browse_cars' %}" class="mobile-only">Browse Cars</a>
+    <a href="{% url 'manage_booking' %}" class="mobile-only">Manage Booking</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'dashboard' %}" class="mobile-only">Dashboard</a>
+    {% else %}
+    <a href="{% url 'login' %}" class="mobile-only">Login</a>
+    <a href="{% url 'register' %}" class="mobile-only">Register</a>
+    {% endif %}
+
 
         {% if user.is_authenticated %}
 
